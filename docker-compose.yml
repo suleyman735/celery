@@ -21,11 +21,24 @@ services:
     container_name: celery
     build:
       context: ./
-    command: ["celery", "--app=celery", "worker", "-l", "INFO"]
-    # celery --app=celery worker -l INFO
-
+    command: celery -A settings worker -l INFO -Q queue1
     volumes:
       - ./celery:/app/
     depends_on:
+      - django
       - redis
 
+  celery2:
+    container_name: celery2
+    build:
+      context: ./celeryworker
+      dockerfile: Dockerfile
+    command: celery -A celerytask worker -l INFO -Q queue1
+    volumes:
+      - ./celeryworker:/app/
+    depends_on:
+      - django
+      - redis
+
+    # celery worker --app=celery --loglevel=info
+    # celery --app=celery worker -l INFO

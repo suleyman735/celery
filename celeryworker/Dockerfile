@@ -12,17 +12,5 @@ COPY requirements.txt /celery/
 RUN pip install -r requirements.txt
 
 COPY . /celery/
-# Copy the Django project code into the container
-# COPY . /celery/
-
-# COPY ./entrypoint.sh ./
 
 
-
-
-# COPY . /celery/
-# ENTRYPOINT ["./entrypoint.sh"]
-
-
-# Command to run the application
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000",]
